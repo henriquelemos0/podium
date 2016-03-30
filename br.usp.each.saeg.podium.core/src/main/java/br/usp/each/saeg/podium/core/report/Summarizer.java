@@ -14,8 +14,8 @@ import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationEntry;
-import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
+import br.usp.each.saeg.podium.core.model.FaultLocalizationEntry;
+import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
 
 public class Summarizer {
 

@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
-import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationEntry;
-import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
+import br.usp.each.saeg.podium.core.model.FaultLocalizationEntry;
+import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
 
 /**
  * @author ashraf
