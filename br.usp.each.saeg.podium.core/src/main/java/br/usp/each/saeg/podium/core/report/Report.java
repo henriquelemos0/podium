@@ -24,12 +24,16 @@ import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
 import br.usp.each.saeg.podium.core.output.CsvFileWriter;
 
+@SuppressWarnings("restriction")
 public class Report {
 
-	private static final String DEFUALT_RESULT_FILE_XML = "\\JaguarReport.xml";
-	private static final String DEFUALT_RESULT_FILE_CSV = "\\JaguarReport.csv";
+	private static final String XML_EXTENSION = ".xml";
+	private static final String CSV_EXTENSION = ".csv";
+	private static final String DEFUALT_RESULT_FILE_NAME = "JaguarReport";
 	private static final String JAGUAR_FOLDER = "\\.jaguar\\";
 	private static final String DEFAULT_FOLDER = "." + JAGUAR_FOLDER;
+	private static final String DEFUALT_RESULT_FILE_CSV = DEFUALT_RESULT_FILE_NAME + CSV_EXTENSION;
+	private static final String DEFUALT_RESULT_FILE_XML = DEFUALT_RESULT_FILE_NAME + XML_EXTENSION;
 
 	public void createReport(final File folder, final File reportFileXml, final File reportFileCsv, String className, Integer line) throws FileNotFoundException {
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
@@ -43,16 +47,24 @@ public class Report {
 
 	public void createReport(final String rootFolder, String programFolder, String className, Integer line) throws FileNotFoundException {
 		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
-		File reportFileXml = new File(rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_XML);
-		File reportFileCsv = new File(rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_CSV);
+		File reportFileXml = new File(getFilePath(rootFolder, programFolder, className, line) + XML_EXTENSION);
+		File reportFileCsv = new File(getFilePath(rootFolder, programFolder, className, line) + CSV_EXTENSION);
 		
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
 
 		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
 		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
 
+		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
+		String programDescName = programFolder + "-" + classNameNoPackage + "-" + line;
+
 		createXmlFile(reportFileXml, faultLocalizationReport);
-		createCsvFile(programFolder, reportFileCsv, faultLocalizationReport);
+		createCsvFile(programDescName, reportFileCsv, faultLocalizationReport);
+	}
+
+	private String getFilePath(final String rootFolder, String programFolder, String className, Integer line) {
+		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
+		return rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_NAME + "-" + programFolder + "-" + classNameNoPackage + "-" + line;
 	}
 
 	private void createXmlFile(final File reportFile, FaultLocalizationReport faultLocalizationReport) {
@@ -75,23 +87,28 @@ public class Report {
 	 */
 	private Map<String, FaultClassification> getJaguarFiles(final File folder, final File reportFile) {
 
-		List<File> resultFiles = FileUtils.findFilesEndingWith(folder, new String[] { ".xml" });
+		List<File> resultFiles = FileUtils.findFilesEndingWith(folder, new String[] { XML_EXTENSION });
 		Map<String, FaultClassification> jaguarFileMap = new HashMap<String, FaultClassification>();
 
 		for (File file : resultFiles) {
-			if (!file.getName().equals("fault.xml") && !file.getName().equals(reportFile.getName())) {
-				try{
-			        javax.xml.bind.JAXBContext context = javax.xml.bind.JAXBContext.newInstance(
-			        		FlatFaultClassification.class,
-			        		HierarchicalFaultClassification.class
-			        );
-			        javax.xml.bind.Unmarshaller unmarshaller = context.createUnmarshaller();
-					jaguarFileMap.put(file.getName(), (FaultClassification) unmarshaller.unmarshal(file));
-				}catch(DataBindingException e){
-					continue;
-				} catch (JAXBException e) {
-					e.printStackTrace();
-				}
+			if ("JaguarReport.xml".equals(file.getName())){
+				continue;
+			}
+			
+			try{
+		    
+				javax.xml.bind.JAXBContext context = javax.xml.bind.JAXBContext.newInstance(
+		        		FlatFaultClassification.class,
+		        		HierarchicalFaultClassification.class
+		        );
+		        
+				javax.xml.bind.Unmarshaller unmarshaller = context.createUnmarshaller();
+				jaguarFileMap.put(file.getName(), (FaultClassification) unmarshaller.unmarshal(file));
+			
+			}catch(DataBindingException e){				
+				continue;
+			} catch (JAXBException e) {
+				continue;
 			}
 		}
 
