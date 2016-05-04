@@ -4,42 +4,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import br.usp.each.saeg.podium.core.input.model.Program;
+
 public class ReportManualRunner {
 
 	public static void main(String[] args) throws FileNotFoundException{
-		
-		class Program {
-			final private String name;
-			final private String faultyClass;
-			final private Integer faultyLine;
-			public Program(String name, String faultyClass, Integer faultyLine) {
-				super();
-				this.name = name;
-				this.faultyClass = faultyClass;
-				this.faultyLine = faultyLine;
-			}
-			/**
-			 * @return the name
-			 */
-			public String getName() {
-				return name;
-			}
-
-			/**
-			 * @return the faultyClass
-			 */
-			public String getFaultyClass() {
-				return faultyClass;
-			}
-
-			/**
-			 * @return the faultyLine
-			 */
-			public Integer getFaultyLine() {
-				return faultyLine;
-			}
-		}
-		
+			
 		/*
 		 * Commons-math info
 		 */
