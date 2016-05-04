@@ -24,9 +24,12 @@ public class Report {
 	private static final String CSV_EXTENSION = ".csv";
 	private static final String DEFUALT_RESULT_FILE_NAME = "JaguarReport";
 	private static final String JAGUAR_FOLDER = "\\.jaguar\\";
+	private static final String PODIUM_FOLDER = "\\.podium\\";
 	private static final String DEFAULT_FOLDER = "." + JAGUAR_FOLDER;
 	private static final String DEFUALT_RESULT_FILE_CSV = DEFUALT_RESULT_FILE_NAME + CSV_EXTENSION;
 	private static final String DEFUALT_RESULT_FILE_XML = DEFUALT_RESULT_FILE_NAME + XML_EXTENSION;
+	
+	private final String dateTime = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new java.util.Date (System.currentTimeMillis()));
 
 	public void createReport(final File folder, final File reportFileXml, final File reportFileCsv, String className, Integer line) throws FileNotFoundException {
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
@@ -40,8 +43,9 @@ public class Report {
 
 	public void createReport(final String rootFolder, String programFolder, String className, Integer line) throws FileNotFoundException {
 		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
-		File reportFileXml = new File(getFilePath(rootFolder, programFolder, className, line) + XML_EXTENSION);
-		File reportFileCsv = new File(getFilePath(rootFolder, programFolder, className, line) + CSV_EXTENSION);
+		File reportFileXml = new File(getJaguarFilePath(rootFolder, programFolder, className, line) + XML_EXTENSION);
+		File reportFileCsv = new File(getJaguarFilePath(rootFolder, programFolder, className, line) + CSV_EXTENSION);
+		File reportFileCsvCopy = new File(getPodiumFilePath(rootFolder, programFolder, className, line) + CSV_EXTENSION);
 		
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
 
@@ -53,11 +57,17 @@ public class Report {
 
 		createXmlFile(reportFileXml, faultLocalizationReport);
 		createCsvFile(programDescName, reportFileCsv, faultLocalizationReport);
+		createCsvFile(programDescName, reportFileCsvCopy, faultLocalizationReport);
 	}
 
-	private String getFilePath(final String rootFolder, String programFolder, String className, Integer line) {
+	private String getJaguarFilePath(final String rootFolder, String programFolder, String className, Integer line) {
 		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
 		return rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_NAME + "-" + programFolder + "-" + classNameNoPackage + "-" + line;
+	}
+	
+	private String getPodiumFilePath(final String rootFolder, String programFolder, String className, Integer line) {
+		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
+		return rootFolder + PODIUM_FOLDER + "\\" + dateTime + "\\" + DEFUALT_RESULT_FILE_NAME + "-" + programFolder + "-" + classNameNoPackage + "-" + line;
 	}
 
 	private void createXmlFile(final File reportFile, FaultLocalizationReport faultLocalizationReport) {
