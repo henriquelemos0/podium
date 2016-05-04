@@ -31,7 +31,7 @@ public class Summarizer {
 		this.faltyLineNumber = faltyLineNumber;
 	}
 
-	public FaultLocalizationReport summarizePerformResults() throws FileNotFoundException {
+	public FaultLocalizationReport rankResults() throws FileNotFoundException {
 		for (String fileName : jaguarFiles.keySet()) {
 			FaultClassification faultClassification = jaguarFiles.get(fileName);
 			List<? extends SuspiciousElement> elements = getElements(faultClassification);

@@ -39,7 +39,7 @@ public class Report {
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
 
 		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
-		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
+		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
 
 		createXmlFile(reportFileXml, faultLocalizationReport);
 		createCsvFile("", reportFileCsv, faultLocalizationReport);
@@ -53,7 +53,7 @@ public class Report {
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
 
 		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
-		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
+		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
 
 		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
 		String programDescName = programFolder + "-" + classNameNoPackage + "-" + line;
