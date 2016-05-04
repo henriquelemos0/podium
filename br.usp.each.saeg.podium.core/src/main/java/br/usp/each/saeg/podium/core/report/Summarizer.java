@@ -7,12 +7,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
 import br.usp.each.saeg.podium.core.model.FaultLocalizationEntry;
 import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
@@ -154,7 +157,8 @@ public class Summarizer {
 	 * Run recursively the FaultClassification object to extract all the suspiciousElemnts.
 	 * 
 	 * For {@link FlatFaultClassification} the elements are returned.
-	 * For {@link HierarchicalFaultClassification} the elements are extracted recursively from packages, classes and methods, then returned together.
+	 * For {@link HierarchicalFaultClassification} the elements are extracted recursively from 
+	 * packages, classes and methods, then returned together.
 	 * 
 	 * 
 	 * @param resultXml the FaultClassification object extracted from the XML.
@@ -165,13 +169,36 @@ public class Summarizer {
 		if (resultXml instanceof HierarchicalFaultClassification){
 			HierarchicalFaultClassification hierachicalXml = (HierarchicalFaultClassification) resultXml;
 			Collection<Package> packages = hierachicalXml.getPackages();
-			return Report.extractElementsFromPackages(packages);
+			return extractElementsFromPackages(packages);
 		}else if(resultXml instanceof FlatFaultClassification){
 			FlatFaultClassification flatXml = (FlatFaultClassification) resultXml;
 			return flatXml.getRequirements();
 		}else{
 			throw new RuntimeException("Unknown type of FaultClassification objetc");
 		}
+	}
+	
+	/**
+	 * Return a 'flat' list of {@link SuspiciousElement}, extracted recursively from a collenction of {@link Package}, 
+	 * iterating over each {@link Package}, {@link Class} and {@link Method}.
+	 * 
+	 * @param packages the collection of {@link Package}
+	 * 
+	 * @return A 'flat' list of {@link SuspiciousElement}
+	 */
+	public static List<SuspiciousElement> extractElementsFromPackages(Collection<Package> packages) {
+		List<SuspiciousElement> elements = new ArrayList<SuspiciousElement>();
+		for (Package currentPackage : packages) {
+			for (Class currentClass : currentPackage.getClasses()) {
+				for (Method currentMethod : currentClass.getMethods()) {
+					for (Requirement requirement : currentMethod.getRequirements()) {
+						requirement.setName(currentClass.getName());
+						elements.add(requirement);
+					}
+				}
+			}
+		}
+		return elements;
 	}
 
 }

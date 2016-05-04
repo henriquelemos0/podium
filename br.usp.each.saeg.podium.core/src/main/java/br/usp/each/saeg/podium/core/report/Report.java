@@ -115,21 +115,6 @@ public class Report {
 		return jaguarFileMap;
 	}
 
-	public static List<SuspiciousElement> extractElementsFromPackages(Collection<Package> packages) {
-		List<SuspiciousElement> elements = new ArrayList<SuspiciousElement>();
-		for (Package currentPackage : packages) {
-			for (Class currentClass : currentPackage.getClasses()) {
-				for (Method currentMethod : currentClass.getMethods()) {
-					for (Requirement requirement : currentMethod.getRequirements()) {
-						requirement.setName(currentClass.getName());
-						elements.add(requirement);
-					}
-				}
-			}
-		}
-		return elements;
-	}
-
 	/**
 	 * First arg (arg[0]) is the falty class name (including package) and the
 	 * second arg (arg[1]) is the falty line number.
