@@ -2,8 +2,6 @@ package br.usp.each.saeg.podium.core.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +10,9 @@ import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
 
-import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.Method;
-import br.usp.each.saeg.jaguar.codeforest.model.Package;
-import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
-import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
 import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
 import br.usp.each.saeg.podium.core.output.CsvFileWriter;
