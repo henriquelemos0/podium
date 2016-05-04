@@ -31,6 +31,9 @@ public class CsvFileWriter {
 				
 		try {
 			
+			// create dirs if they do not exist
+			reportFile.getParentFile().mkdirs();
+
 			//initialize FileWriter object
 			fileWriter = new FileWriter(reportFile);
 			
