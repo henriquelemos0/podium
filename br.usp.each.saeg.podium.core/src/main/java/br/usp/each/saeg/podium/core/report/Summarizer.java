@@ -95,6 +95,19 @@ public class Summarizer {
 		}
 	}
 	
+	/**
+	 * Check if the given suspiciousElement has the Fault.
+	 * 
+	 * First check if the className is the same as the faultyClassName.
+	 * Then, check if one of the suspiciousElement lines is the faltyLineNumber.
+	 * 
+	 * For {@link LineRequirement} only the line location is used.
+	 * For {@link DuaRequirement} the Def, Use and Target are used.
+	 * 
+	 * @param suspiciousElement the element that might have the faulty line, either {@link DuaRequirement} or {@link LineRequirement}
+	 * 
+	 * @return true if one of the elements line has the faultyLine, false otherwise.
+	 */
 	private boolean containTheFault(SuspiciousElement suspiciousElement) {
 		if (suspiciousElement.getName().equals(faultyClassName)){
 			if (suspiciousElement instanceof DuaRequirement){
@@ -113,6 +126,17 @@ public class Summarizer {
 		return false;
 	}
 
+	/**
+	 * Run recursively the FaultClassification object to extract all the suspiciousElemnts.
+	 * 
+	 * For {@link FlatFaultClassification} the elements are returned.
+	 * For {@link HierarchicalFaultClassification} the elements are extracted recursively from packages, classes and methods, then returned together.
+	 * 
+	 * 
+	 * @param resultXml the FaultClassification object extracted from the XML.
+	 * 
+	 * @return The list of SuspiciousElement extracted from the XML object.
+	 */
 	private List<? extends SuspiciousElement> getElements(FaultClassification resultXml) {
 		if (resultXml instanceof HierarchicalFaultClassification){
 			HierarchicalFaultClassification hierachicalXml = (HierarchicalFaultClassification) resultXml;
