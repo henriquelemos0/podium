@@ -22,7 +22,10 @@ public class CsvFileReader {
 			
 			bufferedReader = new BufferedReader(new FileReader(csvFile));
 			while ((line = bufferedReader.readLine()) != null) {
-
+				
+				if (line.startsWith("#"))
+					continue;
+				
 				programsArray.add(line.split(CVS_SPLIT_BY));
 
 			}
