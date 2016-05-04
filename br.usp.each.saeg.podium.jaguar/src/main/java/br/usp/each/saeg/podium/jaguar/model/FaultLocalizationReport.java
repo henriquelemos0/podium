@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "report")
+@SuppressWarnings("restriction")
 public class FaultLocalizationReport {
 
 	Collection<FaultLocalizationEntry> entries;
