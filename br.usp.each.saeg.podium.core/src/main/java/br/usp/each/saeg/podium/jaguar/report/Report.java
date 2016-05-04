@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.report;
+package br.usp.each.saeg.podium.jaguar.report;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,8 +14,8 @@ import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.core.utils.FileUtils;
-import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
-import br.usp.each.saeg.podium.core.output.CsvFileWriter;
+import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationReport;
+import br.usp.each.saeg.podium.jaguar.output.CsvFileWriter;
 
 @SuppressWarnings("restriction")
 public class Report {

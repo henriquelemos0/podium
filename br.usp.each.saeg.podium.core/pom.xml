@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>br.usp.each.saeg.podium.core</artifactId>
+	<artifactId>br.usp.each.saeg.podium.jaguar</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Podium Core</name>

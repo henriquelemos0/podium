@@ -1,9 +1,11 @@
-package br.usp.each.saeg.podium.core.input;
+package br.usp.each.saeg.podium.jaguar.input;
 
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import br.usp.each.saeg.podium.jaguar.input.CsvFileReader;
 
 public class CsvFileReaderTest {
 

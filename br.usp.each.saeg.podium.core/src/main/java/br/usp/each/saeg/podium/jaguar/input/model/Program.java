@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.input.model;
+package br.usp.each.saeg.podium.jaguar.input.model;
 
 public class Program {
 	

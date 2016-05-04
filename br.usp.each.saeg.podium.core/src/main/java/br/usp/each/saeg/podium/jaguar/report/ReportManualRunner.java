@@ -1,10 +1,10 @@
-package br.usp.each.saeg.podium.core.report;
+package br.usp.each.saeg.podium.jaguar.report;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import br.usp.each.saeg.podium.core.input.model.Program;
+import br.usp.each.saeg.podium.jaguar.input.model.Program;
 
 public class ReportManualRunner {
 

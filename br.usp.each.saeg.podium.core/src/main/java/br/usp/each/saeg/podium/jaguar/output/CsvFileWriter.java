@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.output;
+package br.usp.each.saeg.podium.jaguar.output;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
-import br.usp.each.saeg.podium.core.model.FaultLocalizationEntry;
-import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
+import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationEntry;
+import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationReport;
 
 /**
  * @author ashraf

@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.model;
+package br.usp.each.saeg.podium.jaguar.model;
 
 import java.util.HashMap;
 import java.util.Map;

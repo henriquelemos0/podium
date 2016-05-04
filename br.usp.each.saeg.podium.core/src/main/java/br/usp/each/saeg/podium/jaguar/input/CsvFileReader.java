@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.input;
+package br.usp.each.saeg.podium.jaguar.input;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

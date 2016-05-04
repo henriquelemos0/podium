@@ -1,4 +1,4 @@
-package br.usp.each.saeg.podium.core.report;
+package br.usp.each.saeg.podium.jaguar.report;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.podium.core.model.FaultLocalizationEntry;
-import br.usp.each.saeg.podium.core.model.FaultLocalizationReport;
+import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationEntry;
+import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationReport;
 
 public class Summarizer {
 
