@@ -45,8 +45,8 @@ public class ReportManualRunner {
 		 */
 		final String rootFolder = "C:\\Users\\unknown\\Dropbox\\Henrique\\POS\\Results\\jaguar-results\\math\\";
 		Collection<Program> programs = new ArrayList<Program>();
-		programs.add(new Program("math_1_buggy", "org.apache.commons.math3.fraction.Fraction", 306));
-		programs.add(new Program("math_1_buggy", "org.apache.commons.math3.fraction.BigFraction", 215));
+		programs.add(new Program("math_1_buggy", "org.apache.commons.math3.fraction.BigFraction", 306));
+		programs.add(new Program("math_1_buggy", "org.apache.commons.math3.fraction.Fraction", 215));
 		programs.add(new Program("math_3_buggy", "org.apache.commons.math3.util.MathArrays", 823));
 		programs.add(new Program("math_4_buggy", "org.apache.commons.math3.geometry.euclidean.threed.SubLine", 116));
 		programs.add(new Program("math_4_buggy", "org.apache.commons.math3.geometry.euclidean.twod.SubLine", 120));
