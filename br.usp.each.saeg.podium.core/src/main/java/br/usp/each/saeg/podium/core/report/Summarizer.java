@@ -109,17 +109,22 @@ public class Summarizer {
 	 * @param suspiciousElement the element (dua or line)
 	 */
 	private void addLines(FaultLocalizationEntry reportEntry, SuspiciousElement suspiciousElement) {
+		
 		String className = suspiciousElement.getName();
 		if (suspiciousElement instanceof DuaRequirement){
+		
 			DuaRequirement dua = (DuaRequirement) suspiciousElement;
 			reportEntry.addLine(className + ":" + dua.getDef(), dua.getSuspiciousValue());
 			reportEntry.addLine(className + ":" + dua.getUse(), dua.getSuspiciousValue());
 			if (dua.getTarget() != -1){
 				reportEntry.addLine(className + ":" + dua.getTarget(), dua.getSuspiciousValue());
 			}
-		}else if (suspiciousElement instanceof LineRequirement){
+		
+		} else if (suspiciousElement instanceof LineRequirement) {
+			
 			reportEntry.addLine(className + ":" + suspiciousElement.getLocation(), suspiciousElement.getSuspiciousValue());
 		}
+		
 	}
 	
 	/**
@@ -136,8 +141,11 @@ public class Summarizer {
 	 * @return true if one of the elements line has the faultyLine, false otherwise.
 	 */
 	private boolean containTheFault(SuspiciousElement suspiciousElement) {
-		if (suspiciousElement.getName().equals(faultyClassName)){
+		
+		if (suspiciousElement.getName().equals(faultyClassName)) {
+		
 			if (suspiciousElement instanceof DuaRequirement){
+			
 				DuaRequirement dua = (DuaRequirement) suspiciousElement;
 				if (faltyLineNumber.equals(dua.getDef()))
 					return true;
@@ -145,9 +153,12 @@ public class Summarizer {
 					return true;
 				if (faltyLineNumber.equals(dua.getTarget()))
 					return true;
-			}else if (suspiciousElement instanceof LineRequirement){
+			
+			} else if (suspiciousElement instanceof LineRequirement) {
+			
 				if (faltyLineNumber.equals(suspiciousElement.getLocation()))
 					return true;
+				
 			}
 		}
 		return false;
@@ -166,15 +177,23 @@ public class Summarizer {
 	 * @return The list of SuspiciousElement extracted from the XML object.
 	 */
 	private List<? extends SuspiciousElement> getElements(FaultClassification resultXml) {
-		if (resultXml instanceof HierarchicalFaultClassification){
+		
+		if (resultXml instanceof HierarchicalFaultClassification) {
+		
 			HierarchicalFaultClassification hierachicalXml = (HierarchicalFaultClassification) resultXml;
 			Collection<Package> packages = hierachicalXml.getPackages();
+			
 			return extractElementsFromPackages(packages);
-		}else if(resultXml instanceof FlatFaultClassification){
+		
+		} else if (resultXml instanceof FlatFaultClassification) {
+		
 			FlatFaultClassification flatXml = (FlatFaultClassification) resultXml;
 			return flatXml.getRequirements();
-		}else{
+		
+		} else {
+		
 			throw new RuntimeException("Unknown type of FaultClassification objetc");
+			
 		}
 	}
 	
