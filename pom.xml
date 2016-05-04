@@ -9,7 +9,7 @@
 	<name>Podium Parent</name>
 
 	<modules>
-		<module>br.usp.each.saeg.podium.core</module>
+		<module>br.usp.each.saeg.podium.jaguar</module>
 	</modules>
 	
 </project>
