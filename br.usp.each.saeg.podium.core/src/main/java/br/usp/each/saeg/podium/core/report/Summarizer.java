@@ -31,12 +31,23 @@ public class Summarizer {
 		this.faltyLineNumber = faltyLineNumber;
 	}
 
+	/**
+	 * Iterate throw each FileClassification file to find the faulty line rank. 
+	 * 
+	 * @return The {@link FaultLocalizationReport} containing one entry for each
+	 * input FileClassification and the respective rank result.
+	 * 
+	 * @throws FileNotFoundException
+	 */
 	public FaultLocalizationReport rankResults() throws FileNotFoundException {
 		for (String fileName : jaguarFiles.keySet()) {
+			
+			// Get and sort the elements from the file
 			FaultClassification faultClassification = jaguarFiles.get(fileName);
 			List<? extends SuspiciousElement> elements = getElements(faultClassification);
 			Collections.sort(elements);
 			
+			// Create the result entry using the input file properties
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
 			reportEntry.setFileName(fileName);
 			reportEntry.setCoverageType(faultClassification.getRequirementType().name());
@@ -44,22 +55,35 @@ public class Summarizer {
 			reportEntry.setTotalTime(faultClassification.getTimeSpent());
 			reportEntry.setFaultSuspiciousValue(0D);
 			
+			// Iterate over each element, until the faulty line is found.
 			boolean faultFound = false;
 			for (SuspiciousElement suspiciousElement : elements) {
+				
 				if (!faultFound) {
 				
 					if (containTheFault(suspiciousElement)) {
+					
+						// The faulty line was found
 						faultFound = true;
 						reportEntry.setFaultSuspiciousValue(suspiciousElement.getSuspiciousValue());
+					
 					}
+
+					// Add the elements lines to the list of lines to be searched until the faulty line is reached. 
 					addLines(reportEntry, suspiciousElement);
 
 				}else{
 					
 					if (suspiciousElement.getSuspiciousValue().equals(reportEntry.getFaultSuspiciousValue())) {
+						
+						// Still have to add the elements with the same suspicious value
 						addLines(reportEntry, suspiciousElement);
+					
 					} else {
+						
+						// The rank is done for this file, all the following elements have a lower suspicious value than the fautly one.						
 						break;
+					
 					}
 					
 				}

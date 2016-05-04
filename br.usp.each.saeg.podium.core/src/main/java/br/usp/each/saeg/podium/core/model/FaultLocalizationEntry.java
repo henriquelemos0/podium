@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "FaultLocalizationEntry")
+@SuppressWarnings("restriction")
 public class FaultLocalizationEntry {
 
 	private Long totalTime = 0L;
@@ -139,6 +140,10 @@ public class FaultLocalizationEntry {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * If the line did not exist before, add it to the global map.
+	 * If the suspiciousValue is higher, updated it.
+	 */
 	public void addLine(String lineDesc, Double newSuspiciousValue) {
 		if (lineMap.containsKey(lineDesc)){
 			Double oldSuspiciousValue = lineMap.get(lineDesc);
