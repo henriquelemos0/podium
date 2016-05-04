@@ -16,12 +16,13 @@ public class ReportManualRunner {
 	
 		ProjectFactory projectFactory = new ProjectFactory(projectsCsvFile);
 		Collection<Project> projects = projectFactory.createProjects();
+		Report report = new Report();
 		
 		for (Project project : projects) {
 			String programFolder = project.getName();
 			String faultyClass = project.getFaultyClass();
 			Integer faultyLine = project.getFaultyLine();
-			new Report().createReport(rootFolder, programFolder, faultyClass, faultyLine);			
+			report.createReport(rootFolder, programFolder, faultyClass, faultyLine);			
 		}
 		
 	}
