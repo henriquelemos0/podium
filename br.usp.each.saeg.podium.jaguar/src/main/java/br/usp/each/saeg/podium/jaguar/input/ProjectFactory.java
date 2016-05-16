@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.usp.each.saeg.podium.jaguar.input.model.Project;
 
 public class ProjectFactory {
@@ -31,7 +33,10 @@ public class ProjectFactory {
 		Collection<Project> projects = new ArrayList<Project>();
 		
 		for (String[] params : projectList) {
-			Project project = new Project(params[0], params[1], new Integer(params[2]));
+			String projectName = StringUtils.trim(params[0]);
+			String faultyClass = StringUtils.trim(params[1]);
+			Integer faultLine = new Integer(StringUtils.trim(params[2]));
+			Project project = new Project(projectName, faultyClass, faultLine);
 			projects.add(project);
 		}
 		
