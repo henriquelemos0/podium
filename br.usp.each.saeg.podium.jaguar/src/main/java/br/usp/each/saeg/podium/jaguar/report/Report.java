@@ -25,21 +25,8 @@ public class Report {
 	private static final String DEFUALT_RESULT_FILE_NAME = "JaguarReport";
 	private static final String JAGUAR_FOLDER = "\\.jaguar\\";
 	private static final String PODIUM_FOLDER = "\\.podium\\";
-	private static final String DEFAULT_FOLDER = "." + JAGUAR_FOLDER;
-	private static final String DEFUALT_RESULT_FILE_CSV = DEFUALT_RESULT_FILE_NAME + CSV_EXTENSION;
-	private static final String DEFUALT_RESULT_FILE_XML = DEFUALT_RESULT_FILE_NAME + XML_EXTENSION;
 	
 	private final String dateTime = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new java.util.Date (System.currentTimeMillis()));
-
-	public void createReport(final File folder, final File reportFileXml, final File reportFileCsv, String className, Integer line) throws FileNotFoundException {
-		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
-
-		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
-		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
-
-		createXmlFile(reportFileXml, faultLocalizationReport);
-		createCsvFile("", reportFileCsv, faultLocalizationReport);
-	}
 
 	public void createReport(final String rootFolder, String programFolder, String className, Integer line) throws FileNotFoundException {
 		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
@@ -117,29 +104,5 @@ public class Report {
 
 		return jaguarFileMap;
 	}
-
-	/**
-	 * First arg (arg[0]) is the falty class name (including package) and the
-	 * second arg (arg[1]) is the falty line number.
-	 * 
-	 * If the first arg is not present, it is used the default = .\jaguar\ If
-	 * the second arg is not present, it is used the default =
-	 * {arg0}\JaguarReport.xml
-	 * 
-	 * @param args
-	 * @throws FileNotFoundException
-	 * @throws IllegalArgumentException
-	 */
-	public static void main(String[] args) throws FileNotFoundException, IllegalArgumentException {
-		File folder = new File(DEFAULT_FOLDER);
-		File resultFileXml = new File(folder.getAbsolutePath() + DEFUALT_RESULT_FILE_XML);
-		File resultFileCsv = new File(folder.getAbsolutePath() + DEFUALT_RESULT_FILE_CSV);
-		if (args.length < 2) {
-			throw new IllegalArgumentException("Not enougth information, please add the Falty class name and line number.");
-		}
-		String className = args[0];
-		Integer line = Integer.valueOf(args[1]);
-		new Report().createReport(folder, resultFileXml, resultFileCsv, className, line);
-	}	
 
 }
