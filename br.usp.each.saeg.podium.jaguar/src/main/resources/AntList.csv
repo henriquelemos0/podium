@@ -1,0 +1,15 @@
+ant-1_3_b3_CLJ_DH_1,org.apache.tools.ant.types.CommandlineJava, 176
+ant-1_3_b3_PJH_AK_1,org.apache.tools.ant.ProjectHelper,114
+ant-1_4_1_TG_HD_1,org.apache.tools.ant.Target,88
+ant-1_4_1_TG_HD_2,org.apache.tools.ant.Target,113
+ant-1_4_CDJ_AK_1,org.apache.tools.ant.types.CommandlineJava,287
+ant-1_4_PH_HD_1,org.apache.tools.ant.ProjectHelper$TargetHandler,436
+ant-1_5_2_MNT_AK_1,org.apache.tools.ant.taskdefs.ManifestTask,263
+ant-1_5_2_MST_AK_1,org.apache.tools.ant.taskdefs.Manifest,743
+ant-1_5_2_PJ_HD_2,org.apache.tools.ant.Project,241
+ant-1_5_3_MT_HD_1,org.apache.tools.ant.taskdefs.ManifestTask,193
+ant-1_5_DEW_AK_1,org.apache.tools.ant.util.DOMElementWriter,313
+ant-1_5_DEW_AK_1,org.apache.tools.ant.util.DOMElementWriter,319
+ant-1_5_EA_HD_1,org.apache.tools.ant.types.EnumeratedAttribute,101
+ant-1_5_FLU_AK_1,org.apache.tools.ant.util.FileUtils,773
+ant-1_5_SFS_HD_1,org.apache.tools.ant.util.SourceFileScanner,130
