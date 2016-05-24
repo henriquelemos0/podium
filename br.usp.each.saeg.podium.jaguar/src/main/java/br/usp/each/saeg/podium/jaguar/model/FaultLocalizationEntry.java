@@ -17,6 +17,7 @@ public class FaultLocalizationEntry {
 	private Double faultSuspiciousValue;
 	private String fileName;
 	private Map<String, Double> lineMap = new HashMap<String, Double>();
+	private Integer maxCostLimit = Integer.MAX_VALUE;
 	
 	/**
 	 * @return the faultSuspiciousValue
@@ -74,6 +75,10 @@ public class FaultLocalizationEntry {
 		for (Double currentSuspiciousValue : lineMap.values()) {
 			if (this.faultSuspiciousValue < currentSuspiciousValue){
 				minCost++;
+				
+				if (minCost >= maxCostLimit){
+					break;
+				}
 			}
 		}
 		return minCost;
@@ -92,6 +97,10 @@ public class FaultLocalizationEntry {
 		for (Double currentSuspiciousValue : lineMap.values()) {
 			if (this.faultSuspiciousValue <= currentSuspiciousValue){
 				maxCost++;
+				
+				if (maxCost >= maxCostLimit){
+					break;
+				}
 			}
 		}
 		return maxCost;
@@ -139,6 +148,25 @@ public class FaultLocalizationEntry {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	
+	/**
+	 * @return the maxCostLimit
+	 */
+	public Integer getMaxCostLimit() {
+		return maxCostLimit;
+	}
+
+	/**
+	 * Set maxCostLimit only if it is bigger than 0.
+	 * Otherwise the value will still Integer.MAX_VALUE;
+	 * 
+	 * @param maxCostLimit the maxCostLimit to set
+	 */
+	public void setMaxCostLimit(Integer maxCostLimit) {
+		if (maxCostLimit > 0){
+			this.maxCostLimit = maxCostLimit;
+		}
+	}
 
 	/**
 	 * If the line did not exist before, add it to the global map.
@@ -153,6 +181,10 @@ public class FaultLocalizationEntry {
 		}
 		
 		lineMap.put(lineDesc, newSuspiciousValue);
+	}
+
+	public boolean isLargeEnough() {
+		return lineMap.size() >= maxCostLimit;
 	}
 
 }

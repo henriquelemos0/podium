@@ -19,13 +19,23 @@ public class Summarizer {
 	private Collection<FaultLocalizationEntry> reportEntries = new ArrayList<FaultLocalizationEntry>();
 	private final Map<String, FaultClassification> jaguarFiles;
 	private final String faultyClassName;
-	private final Integer faltyLineNumber;
+	private final Integer upperFaltyLineNumber;
+	private final Integer lowerFaltyLineNumber;
+	private final Integer neighborhoodLimit;
+	private final Integer maxCostLimit;
 	
 	public Summarizer(Map<String, FaultClassification> jaguarFiles, String faultyClassName, Integer faltyLineNumber) {
+		this(jaguarFiles, faultyClassName, faltyLineNumber, 0, 0);
+	}	
+	
+	public Summarizer(Map<String, FaultClassification> jaguarFiles, String faultyClassName, Integer faltyLineNumber, Integer neighborhoodLimit, Integer maxCostLimit) {
 		super();
 		this.jaguarFiles = jaguarFiles;
 		this.faultyClassName = faultyClassName;
-		this.faltyLineNumber = faltyLineNumber;
+		this.neighborhoodLimit = neighborhoodLimit;
+		this.lowerFaltyLineNumber = faltyLineNumber + neighborhoodLimit;
+		this.upperFaltyLineNumber = (neighborhoodLimit > faltyLineNumber) ? 0 : faltyLineNumber - neighborhoodLimit;
+		this.maxCostLimit = maxCostLimit;
 	}
 
 	/**
@@ -51,6 +61,7 @@ public class Summarizer {
 			reportEntry.setHeuristic(faultClassification.getHeuristic());
 			reportEntry.setTotalTime(faultClassification.getTimeSpent());
 			reportEntry.setFaultSuspiciousValue(0D);
+			reportEntry.setMaxCostLimit(maxCostLimit);
 			
 			// Iterate over each element, until the faulty line is found.
 			boolean faultFound = false;
@@ -85,6 +96,11 @@ public class Summarizer {
 					
 				}
 				
+				// Stop the search, if there is already more lines than the maxLimit
+				if (reportEntry.isLargeEnough()){
+					break;
+				}
+				
 			}
 			
 			reportEntries.add(reportEntry);
@@ -95,28 +111,42 @@ public class Summarizer {
 	}
 
 	/**
-	 * Add the element lines to the report list of lines.
-	 * If it is a Dua, it is added the def, use and target lines.
-	 * If it is a Line, it is added just the line.
+	 * Add the element lines to the report list of lines, considering the neighborhoodLimit.
+	 * If it is a Dua, it is added the def, use and target lines (and the neighbors).
+	 * If it is a Line, it is added just the line (and the neighbors).
 	 *   
 	 * @param reportEntry the reportEntry to be added the lines
 	 * @param suspiciousElement the element (dua or line)
 	 */
 	private void addLines(FaultLocalizationEntry reportEntry, SuspiciousElement suspiciousElement) {
 		
-		String className = suspiciousElement.getName();
-		if (suspiciousElement instanceof DuaRequirement){
-		
-			DuaRequirement dua = (DuaRequirement) suspiciousElement;
-			reportEntry.addLine(className + ":" + dua.getDef(), dua.getSuspiciousValue());
-			reportEntry.addLine(className + ":" + dua.getUse(), dua.getSuspiciousValue());
-			if (dua.getTarget() != -1){
-				reportEntry.addLine(className + ":" + dua.getTarget(), dua.getSuspiciousValue());
-			}
-		
-		} else if (suspiciousElement instanceof LineRequirement) {
+		for (int lineShift = -neighborhoodLimit; lineShift <= neighborhoodLimit; lineShift++){
+
+			String className = suspiciousElement.getName();
+			if (suspiciousElement instanceof DuaRequirement){
 			
-			reportEntry.addLine(className + ":" + suspiciousElement.getLocation(), suspiciousElement.getSuspiciousValue());
+					DuaRequirement dua = (DuaRequirement) suspiciousElement;
+					
+					if (dua.getDef() + lineShift > 0){
+						reportEntry.addLine(className + ":" + dua.getDef() + lineShift, dua.getSuspiciousValue());
+					}
+					
+					if (dua.getUse() + lineShift > 0){
+						reportEntry.addLine(className + ":" + dua.getUse() + lineShift, dua.getSuspiciousValue());
+					}
+					
+					if (dua.getTarget() != -1 && dua.getTarget()+ lineShift > 0){
+						reportEntry.addLine(className + ":" + dua.getTarget() + lineShift, dua.getSuspiciousValue());
+					}
+			
+			} else if (suspiciousElement instanceof LineRequirement) {
+				
+				if (suspiciousElement.getLocation() + lineShift > 0){
+					reportEntry.addLine(className + ":" + suspiciousElement.getLocation() + lineShift, suspiciousElement.getSuspiciousValue());
+				}
+				
+			}
+			
 		}
 		
 	}
@@ -141,16 +171,16 @@ public class Summarizer {
 			if (suspiciousElement instanceof DuaRequirement){
 			
 				DuaRequirement dua = (DuaRequirement) suspiciousElement;
-				if (faltyLineNumber.equals(dua.getDef()))
+				if ((dua.getDef() < upperFaltyLineNumber) && (dua.getDef() < lowerFaltyLineNumber))
 					return true;
-				if (faltyLineNumber.equals(dua.getUse()))
+				if ((dua.getUse() < upperFaltyLineNumber) && (dua.getUse() < lowerFaltyLineNumber))
 					return true;
-				if (faltyLineNumber.equals(dua.getTarget()))
+				if ((dua.getTarget() < upperFaltyLineNumber) && (dua.getTarget() < lowerFaltyLineNumber))
 					return true;
 			
 			} else if (suspiciousElement instanceof LineRequirement) {
 			
-				if (faltyLineNumber.equals(suspiciousElement.getLocation()))
+				if ((suspiciousElement.getLocation() < upperFaltyLineNumber) && (suspiciousElement.getLocation() < lowerFaltyLineNumber))
 					return true;
 				
 			}

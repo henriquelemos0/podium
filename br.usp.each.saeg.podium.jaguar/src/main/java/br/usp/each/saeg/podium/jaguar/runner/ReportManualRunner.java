@@ -12,7 +12,9 @@ public class ReportManualRunner {
 	public static void main(String[] args) throws FileNotFoundException{
 			
 		final String rootFolder = "C:\\Users\\unknown\\workspace\\luna\\runtime-New_configuration\\";
-		String projectsCsvFile = "./src/main/resources/MathList.csv";
+		String projectsCsvFile = "./src/main/resources/AllList.csv";
+		int maxCostLimit = 100;
+		Integer[] neighbors = new Integer[]{0,1,3,5,10};
 	
 		ProjectFactory projectFactory = new ProjectFactory(projectsCsvFile);
 		Collection<Project> projects = projectFactory.createProjects();
@@ -22,7 +24,9 @@ public class ReportManualRunner {
 			String programFolder = project.getName();
 			String faultyClass = project.getFaultyClass();
 			Integer faultyLine = project.getFaultyLine();
-			report.createReport(rootFolder, programFolder, faultyClass, faultyLine);			
+			for (Integer neighborhoodLimit : neighbors){
+				report.createReport(rootFolder, programFolder, faultyClass, faultyLine, neighborhoodLimit, maxCostLimit);
+			}
 		}
 		
 	}
