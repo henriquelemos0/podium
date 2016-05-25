@@ -46,7 +46,7 @@ public class Summarizer {
 	 * 
 	 * @throws FileNotFoundException
 	 */
-	public FaultLocalizationReport rankResults() throws FileNotFoundException {
+	public FaultLocalizationReport rankResults() {
 		for (String fileName : jaguarFiles.keySet()) {
 			
 			// Get and sort the elements from the file
@@ -128,21 +128,21 @@ public class Summarizer {
 					DuaRequirement dua = (DuaRequirement) suspiciousElement;
 					
 					if (dua.getDef() + lineShift > 0){
-						reportEntry.addLine(className + ":" + dua.getDef() + lineShift, dua.getSuspiciousValue());
+						reportEntry.addLine(className + ":" + (dua.getDef() + lineShift), dua.getSuspiciousValue());
 					}
 					
 					if (dua.getUse() + lineShift > 0){
-						reportEntry.addLine(className + ":" + dua.getUse() + lineShift, dua.getSuspiciousValue());
+						reportEntry.addLine(className + ":" + (dua.getUse() + lineShift), dua.getSuspiciousValue());
 					}
 					
 					if (dua.getTarget() != -1 && dua.getTarget()+ lineShift > 0){
-						reportEntry.addLine(className + ":" + dua.getTarget() + lineShift, dua.getSuspiciousValue());
+						reportEntry.addLine(className + ":" + (dua.getTarget() + lineShift), dua.getSuspiciousValue());
 					}
 			
 			} else if (suspiciousElement instanceof LineRequirement) {
 				
 				if (suspiciousElement.getLocation() + lineShift > 0){
-					reportEntry.addLine(className + ":" + suspiciousElement.getLocation() + lineShift, suspiciousElement.getSuspiciousValue());
+					reportEntry.addLine(className + ":" + (suspiciousElement.getLocation() + lineShift), suspiciousElement.getSuspiciousValue());
 				}
 				
 			}
@@ -180,7 +180,7 @@ public class Summarizer {
 			
 			} else if (suspiciousElement instanceof LineRequirement) {
 			
-				if ((suspiciousElement.getLocation() < upperFaltyLineNumber) && (suspiciousElement.getLocation() < lowerFaltyLineNumber))
+				if ((suspiciousElement.getLocation() >= upperFaltyLineNumber) && (suspiciousElement.getLocation() <= lowerFaltyLineNumber))
 					return true;
 				
 			}
