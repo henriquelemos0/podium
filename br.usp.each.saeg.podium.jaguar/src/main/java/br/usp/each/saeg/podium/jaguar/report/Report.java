@@ -34,7 +34,7 @@ public class Report {
 		File reportFileCsv = new File(getJaguarFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
 		File reportFileCsvCopy = new File(getPodiumFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
 		
-		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
+		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder);
 
 		Summarizer summarizer = new Summarizer(jaguarFileList, className, line, neighborhoodLimit, maxCostLimit);
 		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
@@ -71,11 +71,9 @@ public class Report {
 	 * 
 	 * @param folder
 	 *            The fodler to be searched.
-	 * @param reportFile
-	 *            The current report output file.
 	 * @return A list of FaultLocalization objects.
 	 */
-	private Map<String, FaultClassification> getJaguarFiles(final File folder, final File reportFile) {
+	public static Map<String, FaultClassification> getJaguarFiles(final File folder) {
 
 		List<File> resultFiles = FileUtils.findFilesEndingWith(folder, new String[] { XML_EXTENSION });
 		Map<String, FaultClassification> jaguarFileMap = new HashMap<String, FaultClassification>();
