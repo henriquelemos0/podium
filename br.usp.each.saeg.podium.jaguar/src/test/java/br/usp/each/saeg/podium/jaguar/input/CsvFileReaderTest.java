@@ -9,7 +9,7 @@ import br.usp.each.saeg.podium.jaguar.input.CsvFileReader;
 
 public class CsvFileReaderTest {
 
-	private static final String PROGRAMS_CVS_FILE = "./src/test/resources/ProgramsList.csv";
+	private static final String PROGRAMS_CVS_FILE = "./src/test/resources/projects/ProgramsList.csv";
 	
 	@SuppressWarnings("deprecation")
 	@Test

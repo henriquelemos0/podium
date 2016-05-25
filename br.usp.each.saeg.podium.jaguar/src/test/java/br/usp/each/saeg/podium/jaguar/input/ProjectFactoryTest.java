@@ -10,7 +10,7 @@ import br.usp.each.saeg.podium.jaguar.input.model.Project;
 
 public class ProjectFactoryTest {
 
-	private static final String PROGRAMS_CVS_FILE = "./src/test/resources/ProgramsList.csv";
+	private static final String PROGRAMS_CVS_FILE = "./src/test/resources/projects/ProgramsList.csv";
 	
 	@Test
 	public void createProjectsObjects() throws ClassNotFoundException{	
