@@ -162,6 +162,7 @@ public class FaultLocalizationEntry {
 	 * 
 	 * @param maxCostLimit the maxCostLimit to set
 	 */
+	@XmlAttribute
 	public void setMaxCostLimit(Integer maxCostLimit) {
 		if (maxCostLimit > 0){
 			this.maxCostLimit = maxCostLimit;
