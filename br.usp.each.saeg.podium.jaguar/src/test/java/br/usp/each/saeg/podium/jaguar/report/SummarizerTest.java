@@ -21,8 +21,8 @@ public class SummarizerTest {
 		Summarizer summarizer = new Summarizer(jaguarFileList, "ant-1_4_PH_HD_1_DF", "org.apache.tools.ant.ProjectHelper$TargetHandler", 436, 0, 100);
 		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
 		for (FaultLocalizationEntry entry : faultLocalizationReport.getEntries()) {
-			Assert.assertEquals(new Integer(63), entry.getMaxCost());
-			Assert.assertEquals(new Integer(1), entry.getMinCost());
+			Assert.assertEquals(new Integer(100), entry.getMaxCost());
+			Assert.assertEquals(new Integer(100), entry.getMinCost());
 		}
 	}
 	

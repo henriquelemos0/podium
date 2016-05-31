@@ -178,11 +178,11 @@ public class Summarizer {
 			if (suspiciousElement instanceof DuaRequirement){
 			
 				DuaRequirement dua = (DuaRequirement) suspiciousElement;
-				if ((dua.getDef() <= upperFaultyLineNumber) && (dua.getDef() >= lowerFaultyLineNumber))
+				if ((dua.getDef() >= upperFaultyLineNumber) && (dua.getDef() <= lowerFaultyLineNumber))
 					return true;
-				if ((dua.getUse() <= upperFaultyLineNumber) && (dua.getUse() >= lowerFaultyLineNumber))
+				if ((dua.getUse() >= upperFaultyLineNumber) && (dua.getUse() <= lowerFaultyLineNumber))
 					return true;
-				if ((dua.getTarget() <= upperFaultyLineNumber) && (dua.getTarget() >= lowerFaultyLineNumber))
+				if ((dua.getTarget() >= upperFaultyLineNumber) && (dua.getTarget() <= lowerFaultyLineNumber))
 					return true;
 			
 			} else if (suspiciousElement instanceof LineRequirement) {
