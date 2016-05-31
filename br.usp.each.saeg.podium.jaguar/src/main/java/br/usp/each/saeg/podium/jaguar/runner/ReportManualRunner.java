@@ -10,9 +10,9 @@ import br.usp.each.saeg.podium.jaguar.report.Report;
 public class ReportManualRunner {
 
 	public static void main(String[] args) throws FileNotFoundException{
-			
+
 		final String rootFolder = "C:\\Users\\unknown\\workspace\\luna\\runtime-New_configuration\\";
-		String projectsCsvFile = "./src/main/resources/AllList.csv";
+		String projectsCsvFile = "./src/main/resources/projects/AllList.csv";
 		int maxCostLimit = 100;
 		Integer[] neighbors = new Integer[]{0,1,3,5,10};
 	
