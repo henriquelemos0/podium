@@ -19,22 +19,26 @@ public class Summarizer {
 	private Collection<FaultLocalizationEntry> reportEntries = new ArrayList<FaultLocalizationEntry>();
 	private final Map<String, FaultClassification> jaguarFiles;
 	private final String faultyClassName;
-	private final Integer upperFaltyLineNumber;
-	private final Integer lowerFaltyLineNumber;
+	private final Integer faultyLineNumber;
+	private final Integer upperFaultyLineNumber;
+	private final Integer lowerFaultyLineNumber;
 	private final Integer neighborhoodLimit;
 	private final Integer maxCostLimit;
+	private final String programFolder;
 	
-	public Summarizer(Map<String, FaultClassification> jaguarFiles, String faultyClassName, Integer faltyLineNumber) {
-		this(jaguarFiles, faultyClassName, faltyLineNumber, 0, 0);
+	public Summarizer(Map<String, FaultClassification> jaguarFiles, String programFolder, String faultyClassName, Integer faltyLineNumber) {
+		this(jaguarFiles, programFolder, faultyClassName, faltyLineNumber, 0, 0);
 	}	
 	
-	public Summarizer(Map<String, FaultClassification> jaguarFiles, String faultyClassName, Integer faltyLineNumber, Integer neighborhoodLimit, Integer maxCostLimit) {
+	public Summarizer(Map<String, FaultClassification> jaguarFiles, String programFolder, String faultyClassName, Integer faultyLineNumber, Integer neighborhoodLimit, Integer maxCostLimit) {
 		super();
 		this.jaguarFiles = jaguarFiles;
+		this.programFolder = programFolder;
 		this.faultyClassName = faultyClassName;
 		this.neighborhoodLimit = neighborhoodLimit;
-		this.lowerFaltyLineNumber = faltyLineNumber + neighborhoodLimit;
-		this.upperFaltyLineNumber = (neighborhoodLimit > faltyLineNumber) ? 0 : faltyLineNumber - neighborhoodLimit;
+		this.faultyLineNumber = faultyLineNumber;
+		this.lowerFaultyLineNumber = faultyLineNumber + neighborhoodLimit;
+		this.upperFaultyLineNumber = (neighborhoodLimit > faultyLineNumber) ? 0 : faultyLineNumber - neighborhoodLimit;
 		this.maxCostLimit = maxCostLimit;
 	}
 
@@ -57,6 +61,9 @@ public class Summarizer {
 			// Create the result entry using the input file properties
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
 			reportEntry.setFileName(fileName);
+			String classNameNoPackage = faultyClassName.substring(faultyClassName.lastIndexOf('.') + 1);
+			reportEntry.setProjectName(programFolder + "-" + classNameNoPackage + "-" + faultyLineNumber);
+			reportEntry.setNeighborhoodLimit(neighborhoodLimit);
 			reportEntry.setCoverageType(faultClassification.getRequirementType().name());
 			reportEntry.setHeuristic(faultClassification.getHeuristic());
 			reportEntry.setTotalTime(faultClassification.getTimeSpent());
@@ -171,16 +178,16 @@ public class Summarizer {
 			if (suspiciousElement instanceof DuaRequirement){
 			
 				DuaRequirement dua = (DuaRequirement) suspiciousElement;
-				if ((dua.getDef() < upperFaltyLineNumber) && (dua.getDef() < lowerFaltyLineNumber))
+				if ((dua.getDef() < upperFaultyLineNumber) && (dua.getDef() < lowerFaultyLineNumber))
 					return true;
-				if ((dua.getUse() < upperFaltyLineNumber) && (dua.getUse() < lowerFaltyLineNumber))
+				if ((dua.getUse() < upperFaultyLineNumber) && (dua.getUse() < lowerFaultyLineNumber))
 					return true;
-				if ((dua.getTarget() < upperFaltyLineNumber) && (dua.getTarget() < lowerFaltyLineNumber))
+				if ((dua.getTarget() < upperFaultyLineNumber) && (dua.getTarget() < lowerFaultyLineNumber))
 					return true;
 			
 			} else if (suspiciousElement instanceof LineRequirement) {
 			
-				if ((suspiciousElement.getLocation() >= upperFaltyLineNumber) && (suspiciousElement.getLocation() <= lowerFaltyLineNumber))
+				if ((suspiciousElement.getLocation() >= upperFaultyLineNumber) && (suspiciousElement.getLocation() <= lowerFaultyLineNumber))
 					return true;
 				
 			}
