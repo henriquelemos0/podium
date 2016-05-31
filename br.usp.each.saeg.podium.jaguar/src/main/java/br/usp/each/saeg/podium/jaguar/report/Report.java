@@ -29,22 +29,29 @@ public class Report {
 	private final String dateTime = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new java.util.Date (System.currentTimeMillis()));
 
 	public void createReport(final String rootFolder, String programFolder, String className, Integer line, Integer neighborhoodLimit, Integer maxCostLimit) throws FileNotFoundException {
-		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
-		File reportFileXml = new File(getJaguarFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + XML_EXTENSION);
-		File reportFileCsv = new File(getJaguarFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
-		File reportFileCsvCopy = new File(getPodiumFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
 		
+		//Get jaguar xml files list
+		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
 		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder);
 
-		Summarizer summarizer = new Summarizer(jaguarFileList, className, line, neighborhoodLimit, maxCostLimit);
+		//Calulate the rank
+		Summarizer summarizer = new Summarizer(jaguarFileList, programFolder, className, line, neighborhoodLimit, maxCostLimit);
 		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
 
+		//Write output files (XML and CVS, at projectName/.jaguar and at ../.podium
+		File reportFileCsv = new File(getJaguarFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
+		File reportFileCsvCopy = new File(getPodiumFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + CSV_EXTENSION);
+
+		File reportFileXml = new File(getJaguarFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + XML_EXTENSION);
+		File reportFileXmlCopy = new File(getPodiumFilePath(rootFolder, programFolder, className, line, neighborhoodLimit) + XML_EXTENSION);
+		
 		String classNameNoPackage = className.substring(className.lastIndexOf('.') + 1);
 		String programDescName = programFolder + "-" + classNameNoPackage + "-" + line;
 
-		createXmlFile(reportFileXml, faultLocalizationReport);
 		createCsvFile(programDescName, reportFileCsv, faultLocalizationReport);
 		createCsvFile(programDescName, reportFileCsvCopy, faultLocalizationReport);
+		createXmlFile(reportFileXml, faultLocalizationReport);
+		createXmlFile(reportFileXmlCopy, faultLocalizationReport);
 	}
 
 	private String getJaguarFilePath(final String rootFolder, String programFolder, String className, Integer line, Integer neighborhoodLimit) {
