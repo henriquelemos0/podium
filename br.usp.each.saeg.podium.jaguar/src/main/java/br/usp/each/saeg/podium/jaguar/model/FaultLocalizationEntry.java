@@ -93,7 +93,7 @@ public class FaultLocalizationEntry implements Comparable<FaultLocalizationEntry
 		if (minCost != null){
 			return minCost;
 		}else{
-			minCost = 0;
+			minCost = 1;
 			for (Double currentSuspiciousValue : lineMap.values()) {
 				if (this.faultSuspiciousValue < currentSuspiciousValue){
 					minCost++;
