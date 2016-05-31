@@ -14,6 +14,19 @@ import br.usp.each.saeg.podium.jaguar.model.FaultLocalizationReport;
 public class SummarizerTest {
 
 	@Test
+	public void CF_farAway() throws ClassNotFoundException{
+		File folder = new File("./src/test/resources/report/ant-1_4_PH_HD_1_DF");
+		Map<String, FaultClassification> jaguarFileList = Report.getJaguarFiles(folder);
+
+		Summarizer summarizer = new Summarizer(jaguarFileList, "ant-1_4_PH_HD_1_DF", "org.apache.tools.ant.ProjectHelper$TargetHandler", 436, 0, 100);
+		FaultLocalizationReport faultLocalizationReport = summarizer.rankResults();
+		for (FaultLocalizationEntry entry : faultLocalizationReport.getEntries()) {
+			Assert.assertEquals(new Integer(63), entry.getMaxCost());
+			Assert.assertEquals(new Integer(1), entry.getMinCost());
+		}
+	}
+	
+	@Test
 	public void defectNotFound_line_CF() throws ClassNotFoundException{
 		File folder = new File("./src/test/resources/report/ant-1_3_b3_CLJ_DH_1_CF");
 		Map<String, FaultClassification> jaguarFileList = Report.getJaguarFiles(folder);
