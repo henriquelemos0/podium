@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "FaultLocalizationEntry")
 @SuppressWarnings("restriction")
-public class FaultLocalizationEntry {
+public class FaultLocalizationEntry implements Comparable<FaultLocalizationEntry>{
 
 	private Long totalTime = 0L;
 	private String heuristic;
@@ -17,8 +17,27 @@ public class FaultLocalizationEntry {
 	private Double faultSuspiciousValue;
 	private String fileName;
 	private Map<String, Double> lineMap = new HashMap<String, Double>();
-	private Integer maxCostLimit = Integer.MAX_VALUE;
+	private Integer maxCostLimit = Integer.MAX_VALUE;	
+	private Integer maxCost = null;
+	private Integer minCost = null;
+	private Integer neighborhoodLimit = 0;
+	private String projectName;
 	
+	/**
+	 * @return the projectName
+	 */
+	@XmlAttribute
+	public String getProjectName() {
+		return projectName;
+	}
+
+	/**
+	 * @param projectName the projectName to set
+	 */
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
 	/**
 	 * @return the faultSuspiciousValue
 	 */
@@ -71,17 +90,28 @@ public class FaultLocalizationEntry {
 	 */
 	@XmlAttribute
 	public Integer getMinCost() {
-		Integer minCost = 1;
-		for (Double currentSuspiciousValue : lineMap.values()) {
-			if (this.faultSuspiciousValue < currentSuspiciousValue){
-				minCost++;
-				
-				if (minCost >= maxCostLimit){
-					break;
+		if (minCost != null){
+			return minCost;
+		}else{
+			minCost = 0;
+			for (Double currentSuspiciousValue : lineMap.values()) {
+				if (this.faultSuspiciousValue < currentSuspiciousValue){
+					minCost++;
+					
+					if (minCost >= maxCostLimit){
+						break;
+					}
 				}
 			}
 		}
 		return minCost;
+	}
+	
+	/**
+	 * @param minCost the minCost to set
+	 */
+	public void setMinCost(Integer minCost) {
+		this.minCost = minCost;
 	}
 
 	/**
@@ -93,17 +123,28 @@ public class FaultLocalizationEntry {
 	 */
 	@XmlAttribute
 	public Integer getMaxCost() {
-		Integer maxCost = 0;
-		for (Double currentSuspiciousValue : lineMap.values()) {
-			if (this.faultSuspiciousValue <= currentSuspiciousValue){
-				maxCost++;
-				
-				if (maxCost >= maxCostLimit){
-					break;
+		if (maxCost != null){
+			return maxCost;
+		}else{
+			maxCost = 0;
+			for (Double currentSuspiciousValue : lineMap.values()) {
+				if (this.faultSuspiciousValue <= currentSuspiciousValue){
+					maxCost++;
+					
+					if (maxCost >= maxCostLimit){
+						break;
+					}
 				}
 			}
 		}
 		return maxCost;
+	}
+	
+	/**
+	 * @param maxCost the maxCost to set
+	 */
+	public void setMaxCost(Integer maxCost) {
+		this.maxCost = maxCost;
 	}
 
 	/**
@@ -152,6 +193,7 @@ public class FaultLocalizationEntry {
 	/**
 	 * @return the maxCostLimit
 	 */
+	@XmlAttribute
 	public Integer getMaxCostLimit() {
 		return maxCostLimit;
 	}
@@ -162,11 +204,25 @@ public class FaultLocalizationEntry {
 	 * 
 	 * @param maxCostLimit the maxCostLimit to set
 	 */
-	@XmlAttribute
 	public void setMaxCostLimit(Integer maxCostLimit) {
 		if (maxCostLimit > 0){
 			this.maxCostLimit = maxCostLimit;
 		}
+	}
+	
+	/**
+	 * @return the neighborhoodLimit
+	 */
+	@XmlAttribute
+	public Integer getNeighborhoodLimit() {
+		return neighborhoodLimit;
+	}
+
+	/**
+	 * @param neighborhoodLimit the neighborhoodLimit to set
+	 */
+	public void setNeighborhoodLimit(Integer neighborhoodLimit) {
+		this.neighborhoodLimit = neighborhoodLimit;
 	}
 
 	/**
@@ -187,5 +243,147 @@ public class FaultLocalizationEntry {
 	public boolean isLargeEnough() {
 		return lineMap.size() >= maxCostLimit;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((coverageType == null) ? 0 : coverageType.hashCode());
+		result = prime * result + ((faultSuspiciousValue == null) ? 0 : faultSuspiciousValue.hashCode());
+		result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
+		result = prime * result + ((heuristic == null) ? 0 : heuristic.hashCode());
+		result = prime * result + ((lineMap == null) ? 0 : lineMap.hashCode());
+		result = prime * result + ((maxCost == null) ? 0 : maxCost.hashCode());
+		result = prime * result + ((maxCostLimit == null) ? 0 : maxCostLimit.hashCode());
+		result = prime * result + ((minCost == null) ? 0 : minCost.hashCode());
+		result = prime * result + ((neighborhoodLimit == null) ? 0 : neighborhoodLimit.hashCode());
+		result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
+		result = prime * result + ((totalTime == null) ? 0 : totalTime.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FaultLocalizationEntry)) {
+			return false;
+		}
+		FaultLocalizationEntry other = (FaultLocalizationEntry) obj;
+		if (coverageType == null) {
+			if (other.coverageType != null) {
+				return false;
+			}
+		} else if (!coverageType.equals(other.coverageType)) {
+			return false;
+		}
+		if (faultSuspiciousValue == null) {
+			if (other.faultSuspiciousValue != null) {
+				return false;
+			}
+		} else if (!faultSuspiciousValue.equals(other.faultSuspiciousValue)) {
+			return false;
+		}
+		if (fileName == null) {
+			if (other.fileName != null) {
+				return false;
+			}
+		} else if (!fileName.equals(other.fileName)) {
+			return false;
+		}
+		if (heuristic == null) {
+			if (other.heuristic != null) {
+				return false;
+			}
+		} else if (!heuristic.equals(other.heuristic)) {
+			return false;
+		}
+		if (lineMap == null) {
+			if (other.lineMap != null) {
+				return false;
+			}
+		} else if (!lineMap.equals(other.lineMap)) {
+			return false;
+		}
+		if (maxCost == null) {
+			if (other.maxCost != null) {
+				return false;
+			}
+		} else if (!maxCost.equals(other.maxCost)) {
+			return false;
+		}
+		if (maxCostLimit == null) {
+			if (other.maxCostLimit != null) {
+				return false;
+			}
+		} else if (!maxCostLimit.equals(other.maxCostLimit)) {
+			return false;
+		}
+		if (minCost == null) {
+			if (other.minCost != null) {
+				return false;
+			}
+		} else if (!minCost.equals(other.minCost)) {
+			return false;
+		}
+		if (neighborhoodLimit == null) {
+			if (other.neighborhoodLimit != null) {
+				return false;
+			}
+		} else if (!neighborhoodLimit.equals(other.neighborhoodLimit)) {
+			return false;
+		}
+		if (projectName == null) {
+			if (other.projectName != null) {
+				return false;
+			}
+		} else if (!projectName.equals(other.projectName)) {
+			return false;
+		}
+		if (totalTime == null) {
+			if (other.totalTime != null) {
+				return false;
+			}
+		} else if (!totalTime.equals(other.totalTime)) {
+			return false;
+		}
+		return true;
+	}
+
+	public int compareTo(FaultLocalizationEntry other) {
+		int i = coverageType.compareTo(other.coverageType);
+	    if (i != 0) return i;
+	    
+	    i = projectName.compareTo(other.projectName);
+	    if (i != 0) return i;
+	    
+		i = heuristic.compareTo(other.heuristic);
+	    if (i != 0) return i;
+
+	    return neighborhoodLimit.compareTo(other.neighborhoodLimit);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FaultLocalizationEntry [projectName=" + projectName + ", heuristic=" + heuristic + ", coverageType=" + coverageType
+				+ ", neighborhoodLimit=" + neighborhoodLimit + ", fileName=" + fileName + ", lineMap=" + lineMap + ", maxCostLimit="
+				+ maxCostLimit + ", maxCost=" + maxCost + ", minCost=" + minCost + ", faultSuspiciousValue=" + faultSuspiciousValue
+				+ ", totalTime=" + totalTime + "]";
+	}
+	
+	
 
 }
