@@ -26,7 +26,7 @@ ant-1_5_SFS_HD_1,org.apache.tools.ant.util.SourceFileScanner,130
 chart_1_buggy,org.jfree.chart.renderer.category.AbstractCategoryItemRenderer,1797
 chart_2_buggy,org.jfree.data.general.DatasetUtilities,755
 ##chart_2_buggy,org.jfree.data.general.DatasetUtilities,1242
-chart_3_buggy,org.jfree.data.time.TimeSeries,1058
+chart_3_buggy,org.jfree.data.time.TimeSeries,1056
 chart_4_buggy,org.jfree.chart.plot.XYPlot,4493
 chart_5_buggy,org.jfree.data.xy.XYSeries,544
 chart_6_buggy,org.jfree.chart.util.ShapeList,105
@@ -160,7 +160,7 @@ time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1098
 #time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1142
 time_14_buggy,org.joda.time.chrono.BasicMonthOfYearDateTimeField,210
 time_15_buggy,org.joda.time.field.FieldUtils,138
-time_16_buggy,org.joda.time.format.DateTimeFormatter,709
+time_16_buggy,org.joda.time.format.DateTimeFormatter,708
 time_17_buggy,org.joda.time.DateTimeZone,1167
 #time_17_buggy,org.joda.time.DateTimeZone,1174
 time_18_buggy,org.joda.time.chrono.GJChronology,364
@@ -197,7 +197,7 @@ lang_4_buggy,org.apache.commons.lang3.text.translate.LookupTranslator,46
 lang_5_buggy,org.apache.commons.lang3.LocaleUtils,97
 lang_6_buggy,org.apache.commons.lang3.text.translate.CharSequenceTranslator,95
 lang_7_buggy,org.apache.commons.lang3.math.NumberUtils,452
-lang_8_buggy,org.apache.commons.lang3.time.FastDatePrinter,1134
+lang_8_buggy,org.apache.commons.lang3.time.FastDatePrinter$TimeZoneNameRule,1134
 lang_9_buggy,org.apache.commons.lang3.time.FastDateParser,144
 lang_10_buggy,org.apache.commons.lang3.time.FastDateParser,304
 #lang_10_buggy,org.apache.commons.lang3.time.FastDateParser,307
