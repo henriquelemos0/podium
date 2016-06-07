@@ -9,8 +9,8 @@ public class RScriptManualRunner {
 
 	public static void main(String[] args) throws FileNotFoundException{
 
-		final File inputFolder = new File("C:\\Users\\unknown\\workspace\\luna\\runtime-New_configuration\\.podium\\2016-05-25_21-28-03");
-		final File outputFile = new File("C:\\Users\\unknown\\workspace\\luna\\runtime-New_configuration\\.podium\\2016-05-25_21-28-03\\RScript.R");
+		final File inputFolder = new File("C:\\Users\\unknown\\Dropbox\\Henrique\\POS\\Results\\jaguar-results\\AllOneDefect");
+		final File outputFile = new File("C:\\Users\\unknown\\Dropbox\\Henrique\\POS\\Results\\jaguar-results\\AllOneDefect\\RScript.R");
 		
 		RScript rScript = new RScript(inputFolder, outputFile);
 		rScript.build();

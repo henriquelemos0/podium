@@ -242,7 +242,7 @@ math_18_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer$Fitnes
 #math_18_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer$FitnessFunction,958
 #math_18_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer$FitnessFunction,992
 #math_18_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer$FitnessFunction,995
-math_19_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer,537
+#math_19_buggy,org.apache.commons.math3.optimization.direct.CMAESOptimizer,537
 math_21_buggy,org.apache.commons.math3.linear.RectangularCholeskyDecomposition,80
 #math_21_buggy,org.apache.commons.math3.linear.RectangularCholeskyDecomposition,124
 #math_22_buggy,org.apache.commons.math3.distribution.UniformRealDistribution,184
@@ -250,7 +250,7 @@ math_21_buggy,org.apache.commons.math3.linear.RectangularCholeskyDecomposition,8
 #math_26_buggy,org.apache.commons.math3.fraction.Fraction,181
 math_26_buggy,org.apache.commons.math3.fraction.Fraction,209
 #math_27_buggy,org.apache.commons.math3.fraction.Fraction,597
-math_30_buggy,org.apache.commons.math3.stat.inference.MannWhitneyUTest,173
+#math_30_buggy,org.apache.commons.math3.stat.inference.MannWhitneyUTest,173
 math_32_buggy,org.apache.commons.math3.geometry.euclidean.twod.PolygonsSet,136
 math_33_buggy,org.apache.commons.math3.optimization.linear.SimplexTableau,338
 #math_34_buggy,org.apache.commons.math3.genetics.ListPopulation,209
@@ -258,7 +258,7 @@ math_33_buggy,org.apache.commons.math3.optimization.linear.SimplexTableau,338
 #math_35_buggy,org.apache.commons.math3.genetics.ElitisticListPopulation,65
 math_37_buggy,org.apache.commons.math.complex.Complex,1018
 #math_37_buggy,org.apache.commons.math.complex.Complex,1063
-math_39_buggy,org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator,249
+###math_39_buggy,org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator,249
 math_41_buggy,org.apache.commons.math.stat.descriptive.moment.Variance,520
 math_43_buggy,org.apache.commons.math.stat.descriptive.SummaryStatistics,158
 #math_43_buggy,org.apache.commons.math.stat.descriptive.SummaryStatistics,161
@@ -269,13 +269,13 @@ math_44_buggy,org.apache.commons.math.ode.AbstractIntegrator,342
 #math_45_buggy,org.apache.commons.math.linear.OpenMapRealMatrix,50
 #math_49_buggy,org.apache.commons.math.linear.OpenMapRealVector,345
 #math_49_buggy,org.apache.commons.math.linear.OpenMapRealVector,358
-math_49_buggy,org.apache.commons.math.linear.OpenMapRealVector,370
+#math_49_buggy,org.apache.commons.math.linear.OpenMapRealVector,370
 #math_49_buggy,org.apache.commons.math.linear.OpenMapRealVector,383
 math_50_buggy,org.apache.commons.math.analysis.solvers.BaseSecantSolver,187
 math_59_buggy,org.apache.commons.math.util.FastMath,3482
 math_63_buggy,org.apache.commons.math.util.MathUtils,417
 math_73_buggy,org.apache.commons.math.analysis.solvers.BrentSolver,138
-#math_75_buggy,org.apache.commons.math.stat.Frequency,303
+#lamath_75_buggy,org.apache.commons.math.stat.Frequency,303
 math_82_buggy,org.apache.commons.math.optimization.linear.SimplexSolver,82
 #math_83_buggy,org.apache.commons.math.optimization.linear.SimplexTableau,292
 #math_83_buggy,org.apache.commons.math.optimization.linear.SimplexTableau,341
@@ -285,11 +285,11 @@ math_85_buggy,org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils
 math_87_buggy,org.apache.commons.math.optimization.linear.SimplexTableau,275
 math_90_buggy,org.apache.commons.math.stat.Frequency,121
 math_94_buggy,org.apache.commons.math.util.MathUtils,412
-math_98_buggy,org.apache.commons.math.linear.BigMatrixImpl,991
+#math_98_buggy,org.apache.commons.math.linear.BigMatrixImpl,991
 #math_98_buggy,org.apache.commons.math.linear.RealMatrixImpl,779
 math_99_buggy,org.apache.commons.math.util.MathUtils,543
 #math_99_buggy,org.apache.commons.math.util.MathUtils,714
-math_100_buggy,org.apache.commons.math.estimation.AbstractEstimator,166
+#math_100_buggy,org.apache.commons.math.estimation.AbstractEstimator,166
 #math_100_buggy,org.apache.commons.math.estimation.AbstractEstimator,202
 #math_100_buggy,org.apache.commons.math.estimation.AbstractEstimator,207
 math_104_buggy,org.apache.commons.math.special.Gamma,37
