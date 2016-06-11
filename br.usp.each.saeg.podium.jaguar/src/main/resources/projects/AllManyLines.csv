@@ -155,9 +155,9 @@ time_12_buggy,org.joda.time.LocalDate,240
 time_12_buggy,org.joda.time.LocalDateTime,199
 time_12_buggy,org.joda.time.LocalDateTime,201
 time_12_buggy,org.joda.time.LocalDateTime,237
-time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1098
-time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1133
-time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1142
+time_13_buggy,org.joda.time.format.PeriodFormatterBuilder$FieldFormatter,1098
+time_13_buggy,org.joda.time.format.PeriodFormatterBuilder$FieldFormatter,1133
+time_13_buggy,org.joda.time.format.PeriodFormatterBuilder$FieldFormatter,1142
 time_14_buggy,org.joda.time.chrono.BasicMonthOfYearDateTimeField,210
 time_15_buggy,org.joda.time.field.FieldUtils,138
 time_16_buggy,org.joda.time.format.DateTimeFormatter,708

@@ -155,7 +155,7 @@ time_8_buggy,org.joda.time.DateTimeZone,279
 #time_12_buggy,org.joda.time.LocalDateTime,199
 #time_12_buggy,org.joda.time.LocalDateTime,201
 #time_12_buggy,org.joda.time.LocalDateTime,237
-###time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1098
+time_13_buggy,org.joda.time.format.PeriodFormatterBuilder$FieldFormatter,1098
 #time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1133
 #time_13_buggy,org.joda.time.format.PeriodFormatterBuilder,1142
 #time_14_buggy,org.joda.time.chrono.BasicMonthOfYearDateTimeField,210
@@ -275,7 +275,7 @@ math_50_buggy,org.apache.commons.math.analysis.solvers.BaseSecantSolver,187
 math_59_buggy,org.apache.commons.math.util.FastMath,3482
 math_63_buggy,org.apache.commons.math.util.MathUtils,417
 math_73_buggy,org.apache.commons.math.analysis.solvers.BrentSolver,138
-#lamath_75_buggy,org.apache.commons.math.stat.Frequency,303
+#math_75_buggy,org.apache.commons.math.stat.Frequency,303
 math_82_buggy,org.apache.commons.math.optimization.linear.SimplexSolver,82
 #math_83_buggy,org.apache.commons.math.optimization.linear.SimplexTableau,292
 #math_83_buggy,org.apache.commons.math.optimization.linear.SimplexTableau,341
